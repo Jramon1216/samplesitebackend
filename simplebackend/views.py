@@ -5,24 +5,25 @@ from rest_framework import status
 from django.views.decorators.csrf import csrf_exempt
 
 from .models import Message
+from .serializers import MessageSerializer
 
 
-
+@csrf_exempt
+@api_view(['GET'])
 def receive_message(request):
-    messages = Message.objects.all().values('message')
-    all_messages = [message for message in messages]
-    return HttpResponse(all_messages)
+    return Response({'this method': 'works'}, status=status.HTTP_200_OK)
 
 @csrf_exempt
 @api_view(['POST'])
 def send_message(request):
     if request.method == 'POST':
-        data = {
-            'message': 'this is a message from json'
-        }
-
-        message = data.get('message')
-
-        new_message = Message(message)
-        new_message.save()
-        return Response({'message':'Message sent!'}, status=status.HTTP_201_CREATED)
+        try:
+            serializer = MessageSerializer(data=request.data)
+            if serializer.is_valid():
+                serializer.save()
+                return Response({'success':'Message sent!'}, status=status.HTTP_201_CREATED)
+            else:
+                 return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        except:
+            return Response({'ERROR': 'Something went wrong! Please Try again later'}, status=status.HTTP_400_BAD_REQUEST)
+    return Response({'error': 'Invalid HTTP method'}, status=status.HTTP_405_METHOD_NOT_ALLOWED)
