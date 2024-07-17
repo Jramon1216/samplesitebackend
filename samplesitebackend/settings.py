@@ -53,6 +53,10 @@ MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
 ]
 
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': ['rest_framework.permission.AllowAny']
+    }
+
 ROOT_URLCONF = 'samplesitebackend.urls'
 
 CORS_ORIGIN_ALLOW_ALL = True
