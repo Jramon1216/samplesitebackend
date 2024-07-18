@@ -27,6 +27,7 @@ DEBUG = config('DEBUG', cast=bool)
 
 ALLOWED_HOSTS = [
     '3.142.240.212',
+    '127.0.0.1', 
 ]
 
 
