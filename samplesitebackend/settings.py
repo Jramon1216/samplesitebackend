@@ -66,7 +66,9 @@ REST_FRAMEWORK = {
 ROOT_URLCONF = 'samplesitebackend.urls'
 
 CORS_ALLOWED_ORIGINS = [
-    'https://d2otoz7yoh3ohp.cloudfront.net',  
+    'https://d2otoz7yoh3ohp.cloudfront.net',
+    'http://ec2-3-142-240-212.us-east-2.compute.amazonaws.com',
+    'http://192.168.1.209:3000/'
 ]
 
 TEMPLATES = [
